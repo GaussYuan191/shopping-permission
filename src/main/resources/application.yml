@@ -1,4 +1,5 @@
 server:
+  address: 127.0.0.1
   port: 8080
 
 spring:
@@ -8,7 +9,7 @@ spring:
     active: dev
 
 mybatis-plus:
-  mapper-locations: classpath:/mapper/**/*.xml
+  mapper-locations: classpath:/mapper/ums/*.xml
   global-config:
     db-config:
       id-type: auto
@@ -21,14 +22,6 @@ jwt:
   secret: mall-admin-secret #JWT加解密使用的密钥
   expiration: 604800 #JWT的超期限时间(60*60*24*7)
   tokenHead: 'Bearer '  #JWT负载中拿到开头
-
-#redis:
-#  database: mall
-#  key:
-#    admin: 'ums:admin'
-#    resourceList: 'ums:resourceList'
-#  expire:
-#    common: 86400 # 24小时
 
 secure:
   ignored:

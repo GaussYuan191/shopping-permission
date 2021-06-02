@@ -1,7 +1,7 @@
 package com.shoppingpermission.permission.modules.ums.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.shoppingpermission.permission.modules.ums.model.UmsAdmin;
+import com.shoppingpermission.permission.modules.ums.model.UmsRole;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -9,17 +9,17 @@ import java.util.List;
 
 /**
  * @program: shopping-permission
- * @description: 后台用户表 Mapper 接口
+ * @description: 后台用户角色表 Mapper 接口
  * @author: Gauss
- * @date: 2021-06-02 11:09
+ * @date: 2021-06-02 14:13
  **/
 @Mapper
-public interface UmsAdminMapper extends BaseMapper<UmsAdmin> {
+public interface UmsRoleMapper extends BaseMapper<UmsRole> {
 
     /**
-     * 获取资源相关用户ID列表
+     * 获取用户所有角色
      */
-    List<Long> getAdminIdList(@Param("resourceId") Long resourceId);
+    List<UmsRole> getRoleList(@Param("adminId") Long adminId);
 
 }
 

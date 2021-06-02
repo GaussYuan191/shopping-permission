@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -11,22 +12,21 @@ import java.io.Serializable;
 
 /**
  * @program: shopping-permission
- * @description: 后台用户和角色关系表
+ * @description: 后台角色资源关系表
  * @author: Gauss
- * @date: 2021-06-02 13:15
+ * @date: 2021-06-02 15:46
  **/
 @Data
-@TableName("ums_admin_role_relation")
-public class UmsAdminRoleRelation implements Serializable {
+@TableName("ums_role_resource_relation")
+public class UmsRoleResourceRelation implements Serializable {
 
     private static final long serialVersionUID=1L;
 
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
-
-    private Long adminId;
-
-    private Long roleId;
+    private Long roleId;           //角色ID
+    private Long resourceId;       //资源ID
 
 
 }
+

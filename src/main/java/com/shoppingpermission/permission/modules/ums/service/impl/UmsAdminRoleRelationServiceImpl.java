@@ -14,4 +14,5 @@ import org.springframework.stereotype.Service;
  **/
 @Service
 public class UmsAdminRoleRelationServiceImpl extends ServiceImpl<UmsAdminRoleRelationMapper, UmsAdminRoleRelation> implements UmsAdminRoleRelationService {
+
 }

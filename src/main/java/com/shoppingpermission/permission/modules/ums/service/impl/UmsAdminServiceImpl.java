@@ -6,9 +6,18 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.shoppingpermission.permission.common.exception.Asserts;
+import com.shoppingpermission.permission.domain.AdminUserDetails;
+import com.shoppingpermission.permission.modules.ums.dto.UmsAdminParam;
+import com.shoppingpermission.permission.modules.ums.dto.UpdateAdminPasswordParam;
 import com.shoppingpermission.permission.modules.ums.mapper.UmsAdminMapper;
+import com.shoppingpermission.permission.modules.ums.mapper.UmsResourceMapper;
+import com.shoppingpermission.permission.modules.ums.mapper.UmsRoleMapper;
 import com.shoppingpermission.permission.modules.ums.model.UmsAdmin;
+import com.shoppingpermission.permission.modules.ums.model.UmsAdminRoleRelation;
 import com.shoppingpermission.permission.modules.ums.model.UmsResource;
+import com.shoppingpermission.permission.modules.ums.model.UmsRole;
+import com.shoppingpermission.permission.modules.ums.service.UmsAdminRoleRelationService;
 import com.shoppingpermission.permission.modules.ums.service.UmsAdminService;
 import com.shoppingpermission.permission.security.util.JwtTokenUtil;
 import org.slf4j.Logger;
@@ -55,14 +64,12 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminMapper, UmsAdmin> i
 
     @Override
     public UmsAdmin getAdminByUsername(String username) {
-        UmsAdmin admin = adminCacheService.getAdmin(username);
-        if(admin!=null) return  admin;
+        UmsAdmin admin;
         QueryWrapper<UmsAdmin> wrapper = new QueryWrapper<>();
         wrapper.lambda().eq(UmsAdmin::getUsername,username);
         List<UmsAdmin> adminList = list(wrapper);
         if (adminList != null && adminList.size() > 0) {
             admin = adminList.get(0);
-            adminCacheService.setAdmin(admin);
             return admin;
         }
         return null;
@@ -104,27 +111,10 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminMapper, UmsAdmin> i
             SecurityContextHolder.getContext().setAuthentication(authentication);
             token = jwtTokenUtil.generateToken(userDetails);
 //            updateLoginTimeByUsername(username);
-            insertLoginLog(username);
         } catch (AuthenticationException e) {
             LOGGER.warn("登录异常:{}", e.getMessage());
         }
         return token;
-    }
-
-    /**
-     * 添加登录记录
-     * @param username 用户名
-     */
-    private void insertLoginLog(String username) {
-        UmsAdmin admin = getAdminByUsername(username);
-        if(admin==null) return;
-        UmsAdminLoginLog loginLog = new UmsAdminLoginLog();
-        loginLog.setAdminId(admin.getId());
-        loginLog.setCreateTime(new Date());
-        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request = attributes.getRequest();
-        loginLog.setIp(request.getRemoteAddr());
-        loginLogMapper.insert(loginLog);
     }
 
     /**
@@ -171,15 +161,12 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminMapper, UmsAdmin> i
             }
         }
         boolean success = updateById(admin);
-        adminCacheService.delAdmin(id);
         return success;
     }
 
     @Override
     public boolean delete(Long id) {
-        adminCacheService.delAdmin(id);
         boolean success = removeById(id);
-        adminCacheService.delResourceList(id);
         return success;
     }
 
@@ -201,7 +188,6 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminMapper, UmsAdmin> i
             }
             adminRoleRelationService.saveBatch(list);
         }
-        adminCacheService.delResourceList(adminId);
         return count;
     }
 
@@ -212,13 +198,12 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminMapper, UmsAdmin> i
 
     @Override
     public List<UmsResource> getResourceList(Long adminId) {
-        List<UmsResource> resourceList = adminCacheService.getResourceList(adminId);
+        List<UmsResource> resourceList = new ArrayList<UmsResource>();
         if(CollUtil.isNotEmpty(resourceList)){
             return  resourceList;
         }
         resourceList = resourceMapper.getResourceList(adminId);
         if(CollUtil.isNotEmpty(resourceList)){
-            adminCacheService.setResourceList(adminId,resourceList);
         }
         return resourceList;
     }
@@ -242,7 +227,6 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminMapper, UmsAdmin> i
         }
         umsAdmin.setPassword(passwordEncoder.encode(param.getNewPassword()));
         updateById(umsAdmin);
-        adminCacheService.delAdmin(umsAdmin.getId());
         return 1;
     }
 

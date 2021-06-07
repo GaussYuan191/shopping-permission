@@ -63,6 +63,7 @@ public class UmsRoleServiceImpl extends ServiceImpl<UmsRoleMapper, UmsRole> impl
 
     @Override
     public List<UmsMenu> getMenuList(Long adminId) {
+        System.out.println("aa" + adminId);
         return menuMapper.getMenuList(adminId);
     }
 

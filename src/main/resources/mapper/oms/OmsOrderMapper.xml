@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shoppingpermission.permission.modules.oms.mapper.OmsOrderMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.shoppingpermission.permission.modules.oms.model.OmsOrder">
+        <id column="id" property="id" />
+        <result column="order_sn" property="orderSn" />
+        <result column="create_time" property="createTime" />
+        <result column="member_username" property="memberUsername" />
+        <result column="total_amount" property="totalAmount" />
+        <result column="pay_type" property="payType" />
+        <result column="source_type" property="sourceType" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <select id="getOrderList" resultType="com.shoppingpermission.permission.modules.oms.model.OmsOrder">
+        SELECT
+            *
+        FROM
+           ums_order
+        WHERE o.id=#{id}
+    </select>
+
+</mapper>

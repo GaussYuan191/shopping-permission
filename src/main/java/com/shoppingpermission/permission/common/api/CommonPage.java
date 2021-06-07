@@ -31,6 +31,7 @@ public class CommonPage<T> {
         return result;
     }
 
+
     public Integer getPageNum() {
         return pageNum;
     }

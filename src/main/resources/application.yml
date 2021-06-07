@@ -9,7 +9,7 @@ spring:
     active: dev
 
 mybatis-plus:
-  mapper-locations: classpath:/mapper/ums/*.xml
+  mapper-locations: classpath:/mapper/*/*.xml
   global-config:
     db-config:
       id-type: auto

@@ -31,7 +31,10 @@ public class DynamicAccessDecisionManager implements AccessDecisionManager {
             ConfigAttribute configAttribute = iterator.next();
             //将访问所需资源或用户拥有资源进行比对
             String needAuthority = configAttribute.getAttribute();
+
             for (GrantedAuthority grantedAuthority : authentication.getAuthorities()) {
+                System.out.println("用户需要访问的权限"+ needAuthority);
+                System.out.println("用户拥有的权限"+grantedAuthority.getAuthority());
                 if (needAuthority.trim().equals(grantedAuthority.getAuthority())) {
                     return;
                 }

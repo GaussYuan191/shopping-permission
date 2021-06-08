@@ -16,5 +16,5 @@ public interface OmsOrderService extends IService<OmsOrder> {
     /**
      * 获取订单详情
      */
-    List<OmsOrder> detail(Long id);
+    List<OmsOrder> detail();
 }

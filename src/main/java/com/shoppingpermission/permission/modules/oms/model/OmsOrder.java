@@ -23,7 +23,7 @@ public class OmsOrder implements Serializable {
     private Long id;                  //用户ID
     private String orderSn;          //订单编号
     private Date createTime;         //提交时间
-    private Date memberUsername;     //用户账号
+    private String memberUsername;     //用户账号
     private Integer totalAmount;     //订单总金额
     private Integer payType;         //支付方式：0->未支付；1->支付宝；2->微信
     private Integer sourceType;      //订单来源：0->PC订单；1->app订单

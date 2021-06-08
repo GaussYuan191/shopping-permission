@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * @program: shopping-permission
- * @description:
+ * @description: 订单管理Service
  * @author: Gauss
  * @date: 2021-06-07 13:16
  **/
@@ -22,8 +22,8 @@ public class OmsOrderServiceImpl  extends ServiceImpl<OmsOrderMapper, OmsOrder> 
     OmsOrderMapper orderMapper;
 
     @Override
-    public List<OmsOrder> detail(Long id){
-        return orderMapper.getOrderList(id);
+    public List<OmsOrder> detail(){
+        return orderMapper.getOrderList();
     }
 
 }

@@ -18,8 +18,7 @@
         SELECT
             *
         FROM
-           ums_order
-        WHERE o.id=#{id}
+           oms_order
     </select>
 
 </mapper>

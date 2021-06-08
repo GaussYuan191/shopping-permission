@@ -26,12 +26,13 @@ public class OmsOrderController {
 
     @RequestMapping("/list")
     @ResponseBody
-    public CommonResult list(@Param("id") Long id){
-        List<OmsOrder> orderList= orderService.detail(id);
-        System.out.println(orderList);
+    public CommonResult list(){
+        List<OmsOrder> orderList= orderService.detail();
+
         if (orderList == null) {
             return CommonResult.failed();
         }
+        System.out.println(CommonResult.success(orderList).getData());
         return CommonResult.success(orderList);
     }
 }

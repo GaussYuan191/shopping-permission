@@ -12,5 +12,6 @@ import org.apache.ibatis.annotations.Mapper;
  **/
 @Mapper
 public interface UmsAdminRoleRelationMapper extends BaseMapper<UmsAdminRoleRelation> {
+    Integer findAdminIdByRoleId(Integer id);
 
 }

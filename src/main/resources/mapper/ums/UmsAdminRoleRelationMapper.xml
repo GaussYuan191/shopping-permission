@@ -9,4 +9,11 @@
         <result column="role_id" property="roleId" />
     </resultMap>
 
+    <select id="findAdminIdByRoleId" resultType="java.lang.Integer">
+        SELECT
+             count(*)
+        FROM
+         ums_admin_role_relation where role_id = #{role_id}
+
+    </select>
 </mapper>

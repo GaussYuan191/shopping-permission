@@ -138,6 +138,7 @@ public class UmsAdminController {
     @ResponseBody
     public CommonResult update(@PathVariable Long id, @RequestBody UmsAdmin admin) {
         boolean success = adminService.update(id, admin);
+
         if (success) {
             return CommonResult.success(null);
         }

@@ -11,6 +11,7 @@ import com.shoppingpermission.permission.domain.AdminUserDetails;
 import com.shoppingpermission.permission.modules.ums.dto.UmsAdminParam;
 import com.shoppingpermission.permission.modules.ums.dto.UpdateAdminPasswordParam;
 import com.shoppingpermission.permission.modules.ums.mapper.UmsAdminMapper;
+import com.shoppingpermission.permission.modules.ums.mapper.UmsAdminRoleRelationMapper;
 import com.shoppingpermission.permission.modules.ums.mapper.UmsResourceMapper;
 import com.shoppingpermission.permission.modules.ums.mapper.UmsRoleMapper;
 import com.shoppingpermission.permission.modules.ums.model.UmsAdmin;
@@ -54,6 +55,8 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminMapper, UmsAdmin> i
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private UmsAdminRoleRelationMapper adminRoleRelationMapper;
 
     @Autowired
     private UmsAdminRoleRelationService adminRoleRelationService;
@@ -92,6 +95,7 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminMapper, UmsAdmin> i
         String encodePassword = passwordEncoder.encode(umsAdmin.getPassword());
         umsAdmin.setPassword(encodePassword);
         baseMapper.insert(umsAdmin);
+
         return umsAdmin;
     }
 
@@ -182,6 +186,13 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminMapper, UmsAdmin> i
             List<UmsAdminRoleRelation> list = new ArrayList<>();
             for (Long roleId : roleIds) {
                 UmsAdminRoleRelation roleRelation = new UmsAdminRoleRelation();
+                UmsRole umsRole = roleMapper.selectById(roleId);
+                Integer ums = adminRoleRelationMapper.findAdminIdByRoleId(umsRole.getId().intValue());
+                System.out.println("该角色用户的数量" + ums);
+
+                umsRole.setAdminCount(ums);
+                System.out.println("用户角色" + umsRole.toString());
+                roleMapper.updateById(umsRole);
                 roleRelation.setAdminId(adminId);
                 roleRelation.setRoleId(roleId);
                 list.add(roleRelation);

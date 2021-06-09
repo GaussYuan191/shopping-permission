@@ -5,9 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.shoppingpermission.permission.modules.ums.mapper.UmsMenuMapper;
-import com.shoppingpermission.permission.modules.ums.mapper.UmsResourceMapper;
-import com.shoppingpermission.permission.modules.ums.mapper.UmsRoleMapper;
+import com.shoppingpermission.permission.modules.ums.mapper.*;
 import com.shoppingpermission.permission.modules.ums.model.*;
 import com.shoppingpermission.permission.modules.ums.service.UmsRoleMenuRelationService;
 import com.shoppingpermission.permission.modules.ums.service.UmsRoleResourceRelationService;
@@ -36,8 +34,11 @@ public class UmsRoleServiceImpl extends ServiceImpl<UmsRoleMapper, UmsRole> impl
     private UmsMenuMapper menuMapper;
     @Autowired
     private UmsResourceMapper resourceMapper;
+    @Autowired
+    private UmsAdminRoleRelationMapper adminRoleRelation;
     @Override
     public boolean create(UmsRole role) {
+
         role.setCreateTime(new Date());
         role.setAdminCount(0);
         role.setSort(0);

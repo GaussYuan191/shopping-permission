@@ -20,7 +20,7 @@ import java.io.IOException;
 
 /**
  * @program: shopping-permission
- * @description:
+ * @description: JWTTOKEN
  * @author: Gauss
  * @date: 2021-06-05 13:45
  **/

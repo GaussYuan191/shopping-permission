@@ -12,7 +12,7 @@ import java.io.IOException;
 
 /**
  * @program: shopping-permission
- * @description:
+ * @description: 自定义返回结果：没有权限访问时
  * @author: Gauss
  * @date: 2021-06-05 13:46
  **/

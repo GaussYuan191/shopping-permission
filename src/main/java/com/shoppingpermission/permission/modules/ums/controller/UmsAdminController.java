@@ -122,6 +122,7 @@ public class UmsAdminController {
                                                    @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
                                                    @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
         Page<UmsAdmin> adminList = adminService.list(keyword, pageSize, pageNum);
+
         return CommonResult.success(CommonPage.restPage(adminList));
     }
 

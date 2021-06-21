@@ -6,6 +6,8 @@
 
 本项目基于Springboot+MybatisPlus的快速开发脚手架，拥有完整的权限管理功能。
 
+[项目前端部分](https://gausstop.coding.net/p/permission/d/shopping-permission-web/git)
+
 ## 项目演示
 
 [![RkLsP0.png](https://z3.ax1x.com/2021/06/21/RkLsP0.png)](https://imgtu.com/i/RkLsP0)

@@ -19,7 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 /**
  * @program: shopping-permission
- * @description:
+ * @description: SecurityConfig
  * @author: Gauss
  * @date: 2021-06-05 13:49
  **/

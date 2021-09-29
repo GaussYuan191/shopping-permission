@@ -8,6 +8,7 @@ class PermissionApplicationTests {
 
     @Test
     void contextLoads() {
+        System.out.println("ss");
     }
 
 }
